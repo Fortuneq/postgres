@@ -1,8 +1,8 @@
 -- Enable pgvector extension for vector operations
 CREATE EXTENSION IF NOT EXISTS vector;
 
--- Create table for storing documents and their embeddings
-CREATE TABLE IF NOT EXISTS documents (
+-- Create table for n8n pgvector store
+CREATE TABLE IF NOT EXISTS documents_pg (
     id SERIAL PRIMARY KEY,
     content TEXT NOT NULL,
     metadata JSONB,
@@ -11,5 +11,5 @@ CREATE TABLE IF NOT EXISTS documents (
 );
 
 -- Create index for vector similarity search
-CREATE INDEX IF NOT EXISTS documents_embedding_idx ON documents 
+CREATE INDEX IF NOT EXISTS documents_pg_embedding_idx ON documents_pg 
 USING ivfflat (embedding vector_cosine_ops) WITH (lists = 100);
