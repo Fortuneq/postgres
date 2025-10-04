@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: rag_postgres
+    environment:
+      POSTGRES_DB: rag_db
+      POSTGRES_USER: rag_user
+      POSTGRES_PASSWORD: rag_password
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "0.0.0.0:5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    command: >
+      postgres
+      -c listen_addresses='*'
+      -c port=5432
+
+volumes:
+  postgres_data:
